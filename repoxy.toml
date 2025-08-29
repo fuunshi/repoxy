@@ -1,0 +1,21 @@
+[server]
+host = "127.0.0.1"
+port = 8080
+
+[[routes]]
+path = "/api/users"
+backends = ["http://localhost:5000", "http://localhost:5001"]
+strategy = "round_robin"
+timeout = 5
+retries = 3
+
+[[routes]]
+path = "/api/orders"
+backends = ["http://localhost:6000"]
+strategy = "random"
+
+[[routes]]
+path = "/api/admin"
+backends = ["http://localhost:7000"]
+methods = ["GET", "POST"]
+add_headers = { "X-Auth-Token" = "supersecret" }
